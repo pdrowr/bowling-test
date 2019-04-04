@@ -1,0 +1,23 @@
+= messages
+
+%h1.title Bowling Test
+#scorecard
+  %table#scorecardTable.scorecard{ cellpadding:  '1', cellspacing: '0' }
+    %tr
+      - (1..10).each do |index|
+        %th{:colspan => "6"} Frame #{index}
+      %th{:colspan => "6"} Score
+    %tr
+      - @game.frames.each do |frame|
+        = frame_rolls(frame)
+      %td{ colspan: '6' }
+    %tr
+      - @game.frames.each do |frame|
+        = frame_score(frame)
+      %td#marker0{:colspan => "6"}
+        = @game.total_score
+
+= form_tag make_roll_path(@game), method: :post do
+  = label_tag(:number_of_pins, "Number of pins:")
+  = number_field_tag(:number_of_pins, nil, :autofocus => true, :in => 0...11)
+  = submit_tag "Roll!"

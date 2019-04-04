@@ -1,0 +1,7 @@
+- unless flash.empty?
+  :javascript
+    var notice = "#{flash[:notice]}";
+    swal({
+      type: 'error',
+      title: notice
+    })

@@ -10,7 +10,7 @@ class Frame < ApplicationRecord
     self.save
   end
 
-  def get_frame(shift)
+  def get_frame(shift) # method to find a specific frame
     game.frames[game.current_frame_number - 1 + shift]
   end
 
@@ -24,22 +24,22 @@ class Frame < ApplicationRecord
     manage_score(pins_number)
   end
 
-  def is_strike?
+  def is_strike? #method that returns true if roll is a strike
     self.mark.eql?('strike')
   end
 
-  def is_spare?
+  def is_spare? #method that returns true if roll is a spare
     self.mark == 'spare'
   end
 
-  def set_pins_left(pins_number)
+  def set_pins_left(pins_number) # method to set the quantity of pins left
     self.pins_left -= pins_number
     self.pins_left = 10 if last_frame_finished
   end
 
   private
 
-  def valid_pins?(pins_number)
+  def valid_pins?(pins_number) # method that returns true if the number of pins is valid
     pins_number > pins_left or pins_number < 0 or pins_number > 10
   end
 
