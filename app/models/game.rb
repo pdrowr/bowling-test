@@ -1,4 +1,5 @@
 class Game < ApplicationRecord
+  include GameUtils
   has_many :frames, dependent: :destroy
   after_create :initialize_game
 
@@ -21,21 +22,5 @@ class Game < ApplicationRecord
 
   def total_score
     frames.sum(&:score)
-  end
-
-  private
-
-  def initialize_game
-    10.times { frames.create }
-  end
-
-  def next_frame
-    return unless current_frame.is_strike? or !current_frame.second_roll.nil?
-    self.current_frame_number += 1
-  end
-
-  def finish_game
-    return if !last_frame_finished
-    self.finished = true
   end
 end

@@ -3,7 +3,11 @@
     - if frame.is_strike?
       X
     - elsif frame.is_spare?
-      #{frame.first_roll} , /
+      - if frame.first_roll.eql?(0)
+        \-
+      - else
+        #{frame.first_roll}
+      , /
     - elsif frame&.first_roll.eql?(0) && frame&.second_roll.eql?(0)
       \-
     - elsif frame.first_roll || frame.second_roll
